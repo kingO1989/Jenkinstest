@@ -1,7 +1,7 @@
 pipeline {
 agent any
     stages {
-        stage('build') {
+        stage('deploy') {
             steps {
                 script {
                    /* the return value gets caught and saved into the variable MY_CONTAINER */
@@ -12,7 +12,15 @@ agent any
                     bat '''
                     echo "Multiline shell steps works too"
                     dir
-                '''
+                        '''
+
+                       retry(3) {
+                    bat './flakey-deploy.sh'
+                       }
+
+                timeout(time: 3, unit: 'MINUTES') {
+                    bat './health-check.sh'
+                         }
                    /* the Container gets removed */
                    bat "docker rm -f ${MY_CONTAINER}"
                         }
