@@ -19,6 +19,9 @@ agent any
                     dir
                         '''
 
+                           echo "Database engine is ${DB_ENGINE}"
+                echo "DISABLE_AUTH is ${DISABLE_AUTH}"
+
                        retry(3) {
                     bat './flakey-deploy.sh'
                        }
@@ -29,8 +32,7 @@ agent any
                    /* the Container gets removed */
                    bat "docker rm -f ${MY_CONTAINER}"
 
-                    echo "Database engine is ${DB_ENGINE}"
-                echo "DISABLE_AUTH is ${DISABLE_AUTH}"
+               
                         }
                     }
                 }
