@@ -9,6 +9,10 @@ agent any
                    echo "mycontainer_id is ${MY_CONTAINER}"
                                  
                    bat "node --version"
+                    bat '''
+                    echo "Multiline shell steps works too"
+                    dir
+                '''
                    /* the Container gets removed */
                    bat "docker rm -f ${MY_CONTAINER}"
                         }
