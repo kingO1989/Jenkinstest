@@ -1,5 +1,10 @@
 pipeline {
 agent any
+
+      environment {
+        DISABLE_AUTH = 'true'
+        DB_ENGINE    = 'sqlite'
+    }
     stages {
         stage('deploy') {
             steps {
@@ -23,6 +28,9 @@ agent any
                          }
                    /* the Container gets removed */
                    bat "docker rm -f ${MY_CONTAINER}"
+
+                    echo "Database engine is ${DB_ENGINE}"
+                echo "DISABLE_AUTH is ${DISABLE_AUTH}"
                         }
                     }
                 }
